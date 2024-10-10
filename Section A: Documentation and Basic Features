@@ -1,0 +1,119 @@
+1. Manual Page (man sysopctl)
+The manual page provides users with detailed information about how to use the sysopctl command.
+
+CODE:
+
+.TH SYOPCTL 1 "October 2024"
+.SH NAME
+sysopctl \- System Operations Control
+.SH SYNOPSIS
+.B sysopctl
+[\fIcommand\fR] [\fIoptions\fR]
+.SH DESCRIPTION
+sysopctl is a command-line tool for managing system resources, processes, and health on Linux systems. It provides a user-friendly interface for common system administration tasks.
+
+.SH COMMANDS
+.TP
+.B service list
+List all active services on the system. This command outputs a list similar to the output of `systemctl list-units --type=service`.
+
+.TP
+.B service start \fI<service-name>\fR
+Start the specified system service. The command outputs a status message confirming the start of the service.
+
+.TP
+.B service stop \fI<service-name>\fR
+Stop the specified system service. The command outputs a status message confirming the stop of the service.
+
+.TP
+.B system load
+Display the current system load averages, similar to the output of the `uptime` command.
+
+.TP
+.B disk usage
+Show disk usage statistics for all mounted filesystems, similar to the `df -h` command.
+
+.TP
+.B process monitor
+Display real-time process activity, similar to the `top` or `htop` commands.
+
+.TP
+.B logs analyze
+Summarize recent critical log entries using `journalctl`.
+
+.TP
+.B backup \fI<path>\fR
+Initiate a backup of the specified path using `rsync`. Outputs a message confirming the backup initiation.
+
+.SH OPTIONS
+.TP
+.B --help
+Display a help message with a brief overview of command usage and available commands.
+
+.TP
+.B --version
+Display the version information of the sysopctl command.
+
+.SH EXAMPLES
+.TP
+.B sysopctl service list
+Lists all running services on the system.
+
+.TP
+.B sysopctl service start apache2
+Starts the Apache web server.
+
+.TP
+.B sysopctl disk usage
+Shows disk usage statistics.
+
+.TP
+.B sysopctl logs analyze
+Analyzes and shows critical log entries.
+
+.SH VERSION
+This is version 0.1.0 of sysopctl.
+
+
+2. Help Option Implementation:
+BASH SCRIPT:
+
+#!/bin/bash
+
+function display_help {
+  echo "sysopctl - System Operations Control"
+  echo "Usage: sysopctl [command] [options]"
+  echo
+  echo "Commands:"
+  echo "  service list             List all active services"
+  echo "  service start <service>  Start a specified service"
+  echo "  service stop <service>   Stop a specified service"
+  echo "  system load              View current system load averages"
+  echo "  disk usage               Check disk usage statistics"
+  echo "  process monitor          Monitor system processes in real-time"
+  echo "  logs analyze             Analyze recent critical log entries"
+  echo "  backup <path>           Backup specified files or directories"
+  echo
+  echo "Options:"
+  echo "  --help                   Display this help message"
+  echo "  --version                Show the version information"
+}
+
+# Main script logic
+case "$1" in
+  --help)
+    display_help
+    ;;
+  --version)
+    echo "sysopctl version 0.1.0"
+    ;;
+  # Add your existing command cases here
+  *)
+    echo "Usage: sysopctl [command] [options]"
+    ;;
+esac
+
+Summary
+Manual Page: Provides detailed command usage and examples for users accessing man sysopctl.
+Help Option: Displays a quick help message when the user runs sysopctl --help.
+These contents should help users understand how to use the sysopctl command effectively.
