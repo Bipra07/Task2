@@ -1,0 +1,134 @@
+This section outlines the features and commands that your sysopctl command will implement. Each command has a description, expected output, and example usage.
+
+Part 1: Level Easy
+1.List Running Services
+
+Command: sysopctl service list
+Description: This command lists all active services currently running on the system.
+Expected Output: A list of services in a format similar to systemctl list-units --type=service.
+
+Implementation:
+case "$1" in
+  service)
+    if [ "$2" == "list" ]; then
+      systemctl list-units --type=service
+    fi
+    ;;
+esac
+
+2.View System Load
+
+Command: sysopctl system load
+Description: Displays the current system load averages.
+Expected Output: Load averages similar to the output of the uptime command.
+
+Implementation:
+case "$1" in
+  system)
+    if [ "$2" == "load" ]; then
+      uptime
+    fi
+    ;;
+esac
+
+Part 2: Level Intermediate
+1. Manage System Services
+
+Start a Service
+
+Command: sysopctl service start <service-name>
+Description: Starts the specified service.
+Expected Output: A status message confirming the service has started.
+
+Implementation:
+case "$1" in
+  service)
+    if [ "$2" == "start" ]; then
+      systemctl start "$3"
+      echo "Started service $3"
+    fi
+    ;;
+esac
+
+Stop a Service
+
+Command: sysopctl service stop <service-name>
+Description: Stops the specified service.
+Expected Output: A status message confirming the service has stopped.
+
+Implementation:
+case "$1" in
+  service)
+    if [ "$2" == "stop" ]; then
+      systemctl stop "$3"
+      echo "Stopped service $3"
+    fi
+    ;;
+esac
+
+2. Check Disk Usage
+
+Command: sysopctl disk usage
+Description: Shows disk usage statistics for all mounted filesystems.
+Expected Output: Similar to the output of df -h.
+
+Implementation:
+case "$1" in
+  disk)
+    if [ "$2" == "usage" ]; then
+      df -h
+    fi
+    ;;
+esac
+
+Part 3: Advanced Level
+1. Monitor System Processes
+
+Command: sysopctl process monitor
+Description: Displays real-time process activity.
+Expected Output: Similar to the output of the top command.
+
+Implementation:
+case "$1" in
+  process)
+    if [ "$2" == "monitor" ]; then
+      top
+    fi
+    ;;
+esac
+
+2. Analyze System Logs
+
+Command: sysopctl logs analyze
+Description: Analyzes recent critical log entries.
+Expected Output: Displays recent critical log messages using journalctl.
+
+Implementation:
+case "$1" in
+  logs)
+    if [ "$2" == "analyze" ]; then
+      journalctl -p crit
+    fi
+    ;;
+esac
+
+3. Backup System Files
+
+Command: sysopctl backup <path>
+Description: Initiates a backup of the specified files or directories.
+Expected Output: Confirmation of backup initiation and status, using rsync.
+
+Implementation:
+case "$1" in
+  backup)
+    if [ -n "$2" ]; then
+      rsync -av --progress "$2" /backup/location/
+      echo "Backup initiated for $2"
+    else
+      echo "Specify a path to backup."
+    fi
+    ;;
+esac
+
+Summary:
+This section outlines the commands available in the sysopctl command, detailing their purpose, expected output, and example implementations.
